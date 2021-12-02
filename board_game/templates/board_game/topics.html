@@ -1,0 +1,14 @@
+{% extends "board_game/base.html" %}
+
+{% block content %}
+  <p>Topics</p>
+
+  <ul>
+    {% for game in games %}
+      <li>{{ game }}</li>
+    {% empty %}
+      <li>No games have been added yet.</li>
+    {% endfor %}
+  </ul>
+
+{% endblock content %}
