@@ -11,14 +11,14 @@ def games(request):
     """Display all games."""
     games = BoardGame.objects.order_by('date_added')
     context = {'games': games}
-    return render(request, 'board_game/topics.html', context)
+    return render(request, 'board_game/games.html', context)
 
 def game(request, game_id):
     """Show a single game and all its entries"""
     game = BoardGame.objects.get(id=game_id)
     reviews = game.review_set.order_by('-date_added')
     context = {'game': game, 'reviews': reviews}
-    return render(request, 'board_game/topic.html', context)
+    return render(request, 'board_game/game.html', context)
 
 def new_game(request):
     """Add a new game"""
@@ -35,4 +35,3 @@ def new_game(request):
         # Display a blank or invalid form
         context = {'form': form}
         return render(request, 'board_game/new_game.html', context)
-        
