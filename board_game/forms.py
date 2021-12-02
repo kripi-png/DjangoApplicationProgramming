@@ -6,5 +6,5 @@ class BoardGameForm(forms.ModelForm):
 
     class Meta:
         model = BoardGame
-        fields = ['text']
-        labels = {'tetx': ''}
+        fields = ['name']
+        labels = {'name': ''}
