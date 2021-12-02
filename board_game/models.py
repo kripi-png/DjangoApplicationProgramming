@@ -1,6 +1,6 @@
 from django.db import models
 
-class Boardgame(models.Model):
+class BoardGame(models.Model):
     #A game user can borrow
     name = models.CharField(max_length=200)
 
