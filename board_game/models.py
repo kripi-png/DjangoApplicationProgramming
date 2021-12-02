@@ -15,7 +15,7 @@ class BoardGame(models.Model):
 class Review(models.Model):
     boardgame = models.ForeignKey(BoardGame, on_delete=models.CASCADE)
     text = models.TextField()
-    date_added = models.DateTimeField(auto_now_Add=True)
+    date_added = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         verbose_name_plural = 'Reviews'
