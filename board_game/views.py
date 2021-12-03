@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 
-from .models import BoardGame
+from .models import BoardGame, Review
 from .forms import BoardGameForm, ReviewForm
 
 def index(request):
@@ -32,9 +32,9 @@ def new_game(request):
             form.save()
             return redirect('board_game:games')
 
-        # Display a blank or invalid form
-        context = {'form': form}
-        return render(request, 'board_game/new_game.html', context)
+    # Display a blank or invalid form
+    context = {'form': form}
+    return render(request, 'board_game/new_game.html', context)
 
 def new_review(request, game_id):
     """Add a new review for a particular game"""
@@ -54,3 +54,21 @@ def new_review(request, game_id):
     # Display a blank or invalid review
     context = {'game': game, 'form': form}
     return render(request, 'board_game/new_review.html', context)
+
+def edit_review(request, review_id):
+    """Edit an existing review."""
+    review = Review.objects.get(id=review_id)
+    game = review.board_game
+
+    if request.method != 'POST':
+        # Initial request; pre-fill form with the current entry.
+        form = ReviewForm(instance=review)
+    else:
+        # Post data submitted; process data
+        form = ReviewForm(instance=review, data=request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('board_game:game', game_id=game.id)
+
+    context = {'review': review, 'game': game, 'form': form}
+    return render(request, 'board_game/edit_review.html', context)
