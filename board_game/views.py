@@ -32,6 +32,6 @@ def new_game(request):
             form.save()
             return redirect('board_game:games')
 
-        # Display a blank or invalid form
-        context = {'form': form}
-        return render(request, 'board_game/new_game.html', context)
+    # Display a blank or invalid form
+    context = {'form': form}
+    return render(request, 'board_game/new_game.html', context)

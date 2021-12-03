@@ -13,6 +13,6 @@ urlpatterns =[
     # Detail page for a single boardGame
     path('games/<int:game_id>/', views.game, name='game'),
     # Page for adding a new game
-    path('new_topic/', views.new_game, name='new_game'),
+    path('new_game/', views.new_game, name='new_game'),
 
 ]
