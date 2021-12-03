@@ -13,7 +13,7 @@ class BoardGame(models.Model):
 
 class Review(models.Model):
     """A review a user can write for a boardgame."""
-    board_game = models.ForeignKey(BoardGame, on_delete=models.CASCADE)
+    game = models.ForeignKey(BoardGame, on_delete=models.CASCADE)
     text = models.TextField()
     score = models.IntegerField(
         default=0,

@@ -48,7 +48,7 @@ def new_review(request, game_id):
         form = ReviewForm(data=request.POST)
         if form.is_valid():
             new_review = form.save(commit=False)
-            new_review.board_game = game
+            new_review.game = game
             new_review.save()
             return redirect('board_game:game', game_id=game_id)
     # Display a blank or invalid review
@@ -58,7 +58,7 @@ def new_review(request, game_id):
 def edit_review(request, review_id):
     """Edit an existing review."""
     review = Review.objects.get(id=review_id)
-    game = review.board_game
+    game = review.game
 
     if request.method != 'POST':
         # Initial request; pre-fill form with the current entry.
