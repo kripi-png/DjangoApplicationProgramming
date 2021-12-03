@@ -34,6 +34,8 @@ INSTALLED_APPS = [
     'board_game',
     'users',
 
+    'bootstrap5',
+
     # default apps
     'django.contrib.admin',
     'django.contrib.auth',
