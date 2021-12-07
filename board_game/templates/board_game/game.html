@@ -2,6 +2,7 @@
 {% block content %}
 
   <p>Game: {{ game }}</p>
+  <p>Average score: {{ game.average_score }}</p>
   <p>Reviews:</p>
   <p>
     <a href="{% url 'board_game:new_review' game.id %}">Add a new review</a>
@@ -10,6 +11,7 @@
     {% for review in reviews %}
       <li>
         <p>{{ review.date_added|date:'M d, Y H:i' }}</p>
+        <p>Score: {{ review.score }}/10</p>
         <p>{{ review.text|linebreaks }}</p>
         <p>
           <a href="{% url 'board_game:edit_review' review.id %}">Edit review</a>
