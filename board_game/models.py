@@ -15,9 +15,9 @@ class BoardGame(models.Model):
     @property
     def average_score(self):
         """
-        Calculates average review score via reduce function.
-        Reduce function reduces values from a list one by one adding them to a variable
-        Takes 3 variables: function which is used to accumulate sum variable, list of values and starting value
+        Calculates average review score via reduce function
+        Fnction reduces values from a list one by one, adding them to a variable
+        Takes 3 parameters: function used to accumulate sum variable, list of values and starting value
         """
         return reduce(lambda sum, item: sum + item.score, self.review_set.all(), 0) / len(self.review_set.all())
 
