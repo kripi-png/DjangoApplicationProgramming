@@ -2,8 +2,6 @@ from django import forms
 
 from .models import BoardGame, Review
 
-from .models import BoardGame
-
 class BoardGameForm(forms.ModelForm):
 
     class Meta:
