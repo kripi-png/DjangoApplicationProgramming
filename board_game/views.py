@@ -5,7 +5,7 @@ from .models import BoardGame, Review
 from .forms import BoardGameForm, ReviewForm
 
 def index(request):
-    # Home page for BoardGame
+    """Home page for BoardGame"""
     return render(request, 'board_game/index.html')
 
 @login_required
