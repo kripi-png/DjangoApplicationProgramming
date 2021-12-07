@@ -14,7 +14,6 @@ urlpatterns =[
     path('games/<int:game_id>/', views.game, name='game'),
     # Page for adding a new game
     path('new_game/', views.new_game, name='new_game'),
-    path('new_topic/', views.new_game, name='new_game'),
     # Page for adding a new review
     path('new_review/<int:game_id>/', views.new_review, name='new_review'),
     # Page for editing an review.
