@@ -10,7 +10,7 @@ class BoardGame(models.Model):
     date_added = models.DateTimeField(auto_now_add=True)
     date_modifier = models.DateTimeField(auto_now=True)
     owner= models.ForeignKey(User, on_delete = models.CASCADE,)
-    borrower = models.ForeignKey(User, on_delete = models.CASCADE, related_name = "borrower")
+    borrower = models.ForeignKey(User, on_delete = models.SET_NULL, null=True,  blank=True, related_name = "borrower")
 
 
     LOAN_STATUS = (
