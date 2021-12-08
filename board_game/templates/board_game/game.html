@@ -3,6 +3,11 @@
 
   <p>Game: {{ game }}</p>
   <p>Average score: {{ game.average_score }}</p>
+  <p>Status: {{ game.get_status_display }} </p>
+  {% if game.status == "o" %}
+  <p>Loaned by: {{game.borrower}}</p>
+  {% endif %}
+  <p>
   <p>Reviews:</p>
   <p>
     <a href="{% url 'board_game:new_review' game.id %}">Add a new review</a>
