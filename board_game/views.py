@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 
 from .models import BoardGame, Review
-from .forms import BoardGameForm, ReviewForm
+from .forms import BoardGameForm, ReviewForm, LoanForm
 
 def index(request):
     """Home page for BoardGame"""
@@ -21,6 +21,21 @@ def game(request, game_id):
     game = BoardGame.objects.get(id=game_id)
     reviews = game.review_set.order_by('-date_added')
     context = {'game': game, 'reviews': reviews}
+
+    """Loan a game"""
+    if game.status == "a":
+        if request.method != 'POST':
+            # No data submitted; create a blank form
+            form = LoanForm()
+        else:
+            # Post data submitted; process data
+            form = LoanForm(request.POST)
+            if form.is_valid():
+                game.borrower = request.user
+                game.status = "o"
+                game.save()
+                return redirect('board_game:game', game_id=game.id)
+
     return render(request, 'board_game/game.html', context)
 
 @login_required
@@ -80,3 +95,21 @@ def edit_review(request, review_id):
 
     context = {'review': review, 'game': game, 'form': form}
     return render(request, 'board_game/edit_review.html', context)
+
+def loan_game(request, game_id):
+    """Loan a game"""
+    if request.method != 'POST':
+        # No data submitted; create a blank form
+        form = LoanForm()
+    else:
+        # Post data submitted; process data
+        form = LoanForm(request.POST, request.FILES)
+        if form.is_valid():
+            game.borrower = request.user
+            game.status = "o"
+            form.save(commit=False)
+            return redirect('board_game:game', game_id=game.id)
+
+    # Display a blank or invalid form
+    context = {'form': form}
+    return render(request, 'board_game/game.html', context)

@@ -15,3 +15,9 @@ class ReviewForm(forms.ModelForm):
         fields = ['text', 'score']
         labels = {'text': '', 'score': 'Score:'}
         widgets = {'text': forms.Textarea(attrs={'cols': 80})}
+
+class LoanForm(forms.ModelForm):
+
+    class Meta:
+        model = BoardGame
+        fields = ['borrower', 'status']
