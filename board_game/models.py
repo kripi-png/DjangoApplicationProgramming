@@ -6,8 +6,8 @@ from django.contrib.auth.models import User
 class BoardGame(models.Model):
     """A game user can borrow."""
     name = models.CharField(max_length=200, default='')
-    # description
-    information = models.TextField(max_length=1000, default='')
+    
+    description = models.TextField(max_length=1000, default='')
 
     date_added = models.DateTimeField(auto_now_add=True)
     date_modifier = models.DateTimeField(auto_now=True)

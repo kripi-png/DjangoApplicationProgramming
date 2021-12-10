@@ -6,8 +6,8 @@ class BoardGameForm(forms.ModelForm):
 
     class Meta:
         model = BoardGame
-        fields = ['name', 'information', 'image']
-        labels = {'name': '', 'information':'', 'image': ''}
+        fields = ['name', 'description', 'image']
+        labels = {'name': '', 'description':'', 'image': ''}
 
 class ReviewForm(forms.ModelForm):
     class Meta:
