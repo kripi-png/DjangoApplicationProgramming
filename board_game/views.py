@@ -36,7 +36,21 @@ def game(request, game_id):
                 game.save()
                 return redirect('board_game:game', game_id=game.id)
 
+    if game.status == "o" and request.user == game.borrower:
+        if request.method != 'POST':
+            # No data submitted; create a blank form
+            form = LoanForm()
+        else:
+            # Post data submitted; process data
+            form = LoanForm(request.POST)
+            if form.is_valid():
+                game.borrower = None
+                game.status = "a"
+                game.save()
+                return redirect('board_game:game', game_id=game.id)
+
     return render(request, 'board_game/game.html', context)
+
 
 @login_required
 def new_game(request):
@@ -95,21 +109,3 @@ def edit_review(request, review_id):
 
     context = {'review': review, 'game': game, 'form': form}
     return render(request, 'board_game/edit_review.html', context)
-
-def loan_game(request, game_id):
-    """Loan a game"""
-    if request.method != 'POST':
-        # No data submitted; create a blank form
-        form = LoanForm()
-    else:
-        # Post data submitted; process data
-        form = LoanForm(request.POST, request.FILES)
-        if form.is_valid():
-            game.borrower = request.user
-            game.status = "o"
-            form.save(commit=False)
-            return redirect('board_game:game', game_id=game.id)
-
-    # Display a blank or invalid form
-    context = {'form': form}
-    return render(request, 'board_game/game.html', context)

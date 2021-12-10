@@ -21,6 +21,13 @@
 
   {% if game.status == "o" %}
     <p>Loaned by: {{game.borrower}}</p>
+    {% if game.borrower == request.user %}
+      <form action="{% url 'board_game:game' game.id %}" method='post'>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button name='submit'>Return the game</button>
+      </form>
+    {% endif %}
   {% elif game.status == "a" %}
     <form action="{% url 'board_game:game' game.id %}" method='post'>
       {% csrf_token %}
