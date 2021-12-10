@@ -22,32 +22,19 @@ def game(request, game_id):
     reviews = game.review_set.order_by('-date_added')
     context = {'game': game, 'reviews': reviews}
 
-    """Loan a game"""
-    if game.status == "a":
-        if request.method != 'POST':
-            # No data submitted; create a blank form
-            form = LoanForm()
-        else:
-            # Post data submitted; process data
-            form = LoanForm(request.POST)
-            if form.is_valid():
-                game.borrower = request.user
-                game.status = "o"
-                game.save()
-                return redirect('board_game:game', game_id=game.id)
-
-    if game.status == "o" and request.user == game.borrower:
-        if request.method != 'POST':
-            # No data submitted; create a blank form
-            form = LoanForm()
-        else:
-            # Post data submitted; process data
-            form = LoanForm(request.POST)
-            if form.is_valid():
+    """Borrow and return a game"""
+    if request.method == 'POST':
+        # Post data submitted; process data
+        form = LoanForm(request.POST)
+        if form.is_valid():
+            if request.user == game.borrower:
                 game.borrower = None
                 game.status = "a"
-                game.save()
-                return redirect('board_game:game', game_id=game.id)
+            else:
+                game.borrower = request.user
+                game.status = "o"
+            game.save()
+            return redirect('board_game:game', game_id=game.id)
 
     return render(request, 'board_game/game.html', context)
 
