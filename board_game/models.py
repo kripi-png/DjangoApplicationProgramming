@@ -5,19 +5,29 @@ from django.contrib.auth.models import User
 
 class BoardGame(models.Model):
     """A game user can borrow."""
-    name = models.CharField(max_length=200)
-    information = models.TextField(max_length=1000)
+    name = models.CharField(max_length=200, default='')
+    # description
+    information = models.TextField(max_length=1000, default='')
+
     date_added = models.DateTimeField(auto_now_add=True)
     date_modifier = models.DateTimeField(auto_now=True)
-    owner= models.ForeignKey(User, on_delete = models.CASCADE,)
-    borrower = models.ForeignKey(User, on_delete = models.SET_NULL, null=True,  blank=True, related_name = "borrower")
 
+    image = models.ImageField(upload_to='games/', default='', blank=True)
+
+    owner= models.ForeignKey(User, on_delete = models.CASCADE,)
+    borrower = models.ForeignKey(
+        User,
+        on_delete = models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name = "borrower"
+    )
 
     LOAN_STATUS = (
             ('m', 'Maintenance'),
             ('o', 'On loan'),
             ('a', 'Available'),
-        )
+    )
 
     status = models.CharField(
             max_length=1,
@@ -25,7 +35,8 @@ class BoardGame(models.Model):
             blank=True,
             default='m',
             help_text='Book availability',
-        )
+    )
+
 
     def __str__(self):
         """Return a string representation of the models."""

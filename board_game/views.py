@@ -31,7 +31,7 @@ def new_game(request):
         form = BoardGameForm()
     else:
         # Post data submitted; process data
-        form = BoardGameForm(data=request.POST)
+        form = BoardGameForm(request.POST, request.FILES)
         if form.is_valid():
             new_game = form.save(commit=False)
             new_game.owner = request.user
