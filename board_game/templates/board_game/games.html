@@ -1,18 +1,22 @@
 {% extends "board_game/base.html" %}
 
-{% block content %}
-  <p>Games</p>
+{% block page_header %}
+  <h1>Games</h1>
+{% endblock page_header %}
 
-  <ul>
+{% block content %}
+
+  <ul class="list-group">
     {% for game in games %}
-      <li>
-        <a href="{% url 'board_game:game' game.id %}">{{ game }}</a>
-      </li>
+        <a class="list-group-item list-group-item-action" href="{% url 'board_game:game' game.id %}">{{ game }}</a>
     {% empty %}
-      <li>No games have been added yet.</li>
+      <li><h3>No games have been added yet.</h3></li>
     {% endfor %}
   </ul>
 
-  <a href = "{% url 'board_game:new_game' %}">Add a new game</a>
+  <br>
+
+<a class="btn btn-lg btn-primary" href = "{% url 'board_game:new_game' %}"
+  role="button">Add a new game</a>
 
 {% endblock content %}
