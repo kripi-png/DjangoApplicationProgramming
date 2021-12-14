@@ -14,7 +14,7 @@
     width="300px"
     height="auto" />
   {% endif %}
-  <p>Game: {{ game }}</p>
+  <h3>{{ game }}</h3>
   <p>description: {{  game.description  }}</p>
   <p>Average score: {{ game.average_score }}</p>
   <p>Status: {{ game.get_status_display }} </p>
@@ -24,34 +24,36 @@
     {% if game.borrower == request.user %}
       <form action="{% url 'board_game:game' game.id %}" method='post'>
         {% csrf_token %}
-        <button name='submit'>Return the game</button>
+        <button name='submit' class="btn btn-md btn-primary">Return the game</button>
       </form>
     {% endif %}
   {% elif game.status == "a" %}
     <form action="{% url 'board_game:game' game.id %}" method='post'>
       {% csrf_token %}
-      <button name='submit'>Loan the game</button>
+      <button class="btn btn-md btn-primary" name='submit' role="button">Loan the game</button>
     </form>
   {% endif %}
+  <br>
 
 
   <p>Reviews:</p>
-  <p>
-    <a href="{% url 'board_game:new_review' game.id %}">Add a new review</a>
-  </p>
-  <ul>
-    {% for review in reviews %}
-      <li>
-        <p>{{ review.date_added|date:'M d, Y H:i' }}</p>
-        <p>Score: {{ review.score }}/10</p>
-        <p>{{ review.text|linebreaks }}</p>
-        <p>
-          <a href="{% url 'board_game:edit_review' review.id %}">Edit review</a>
-        </p>
-      </li>
+  <a class="btn btn-sm btn-primary" href="{% url 'board_game:new_review' game.id %}"
+    role="button">Add a new review</a>
+  {% for review in reviews %}
+    <div class="card mb-3">
+      <h4 class="card-header">
+        {{ review.date_added|date:'M d, Y H:i' }}
+        Score: {{ review.score }}/10
+        <small><a href="{% url 'board_game:edit_review' review.id %}">Edit review</a></small>
+        </h4>
+      <div class="card-body">
+        {{ review.text|linebreaks }}
+      </div>
+    </div>
+
+
   {% empty %}
-      <li>There are no reviews for this game yet.</li>
+      <p>There are no reviews for this game yet.</p>
   {% endfor %}
-  </ul>
 
   {% endblock content %}

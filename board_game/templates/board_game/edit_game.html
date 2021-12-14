@@ -1,0 +1,28 @@
+{% extends "board_game/base.html" %}
+{% load static %}
+{% block content %}
+
+<p><a href="{% url 'board_game:game' game.id %}">{{ game }}</a></p>
+
+<p>Edit Board game:</p>
+
+<form action="{% url 'board_game:edit_game' game.id %}" method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button name="submit">Save changes</button>
+</form>
+{{ game.image }}
+{% if game.image %}
+<img
+  src="{{ MEDIA_URL }}{{ game.image }}"
+  alt="{{ game.image.filename }}"
+  width="300px"
+  height="auto" />
+{% else %}
+<img src="{% static 'default_game_image.jpg' %}"
+  alt="no image"
+  width="300px"
+  height="auto" />
+{% endif %}
+
+{% endblock content %}
