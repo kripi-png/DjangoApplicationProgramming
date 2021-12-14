@@ -8,7 +8,7 @@
 <form action="{% url 'board_game:edit_review' review.id %}" method="post">
   {% csrf_token %}
   {{ form.as_p }}
-  <button name="submit">Save changes</button>
+  <button class="btn btn-sm btn-primary" name="submit">Save changes</button>
 </form>
 
 {% endblock content %}

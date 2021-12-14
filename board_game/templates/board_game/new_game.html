@@ -6,7 +6,7 @@
   <form enctype="multipart/form-data" action="{% url 'board_game:new_game' %}" method='post'>
     {% csrf_token %}
     {{ form.as_p }}
-    <button name="submit">Add game</button>
+    <button class="btn btn-sm btn-primary" name="submit">Add game</button>
   </form>
 
 {% endblock content %}
