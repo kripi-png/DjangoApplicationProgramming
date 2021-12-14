@@ -1,14 +1,17 @@
 {% extends "board_game/base.html" %}
 
-{% block content %}
+{% block page_header %}
 
-
-<p>Boardgames may be a good way to take the family and friends together for a fun day. There's no
-  need to leave the case by constantly getting out of the entertaintment when you have a kind of
-  important boardgames to play indoors. From simple dice-based card games to extreme strategy games,
-  anything you're searching for will be seen in BoardGame site.
-  BoardGame site will let you borrow games from the other users and you can also post your games for borrowing
-  if you want that.
-</p>
-
-{% endblock content %}
+  <div class="jumbotron">
+    <h1 class="display-5">Share and borrow board games</h1>
+      <p class="lead">Boardgames may be a good way to take the family and friends together for a fun day. There's no
+        need to leave the case by constantly getting out of the entertaintment when you have a kind of
+        important boardgames to play indoors. From simple dice-based card games to extreme strategy games,
+        anything you're searching for will be seen in BoardGame site.
+        BoardGame site will let you borrow games from the other users and you can also post your games for borrowing
+        if you want that.
+        </p>
+        <a class="btn btn-lg btn-primary" href="{% url 'users:register' %}"
+          role="button">Register &raquo;</a>
+    </div>
+{% endblock page_header %}
