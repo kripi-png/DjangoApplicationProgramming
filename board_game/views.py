@@ -38,7 +38,6 @@ def game(request, game_id):
 
     return render(request, 'board_game/game.html', context)
 
-
 @login_required
 def new_game(request):
     """Add a new game"""
