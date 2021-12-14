@@ -15,9 +15,10 @@
     height="auto" />
   {% endif %}
   <p>Game: {{ game }}</p>
-  <p>description: {{  game.description  }}</p>
+  <p>Description: {{ game.description }}</p>
   <p>Average score: {{ game.average_score }}</p>
   <p>Status: {{ game.get_status_display }} </p>
+  <p><a href="{% url 'board_game:edit_game' game.id %}">Edit book</a></p>
 
   {% if game.status == "o" %}
     <p>Loaned by: {{game.borrower}}</p>
