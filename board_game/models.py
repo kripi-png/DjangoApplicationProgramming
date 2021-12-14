@@ -6,7 +6,6 @@ from django.contrib.auth.models import User
 class BoardGame(models.Model):
     """A game user can borrow."""
     name = models.CharField(max_length=200, default='')
-    
     description = models.TextField(max_length=1000, default='')
 
     date_added = models.DateTimeField(auto_now_add=True)
@@ -37,7 +36,6 @@ class BoardGame(models.Model):
             help_text='Book availability',
     )
 
-
     def __str__(self):
         """Return a string representation of the models."""
         return self.name
@@ -51,7 +49,6 @@ class BoardGame(models.Model):
        """
        if len(self.review_set.all()):
            return reduce(lambda sum, item: sum + item.score, self.review_set.all(), 0) / len(self.review_set.all())
-
 
 class Review(models.Model):
     """A review a user can write for a boardgame."""

@@ -38,7 +38,6 @@ def game(request, game_id):
 
     return render(request, 'board_game/game.html', context)
 
-
 @login_required
 def new_game(request):
     """Add a new game"""
@@ -57,6 +56,24 @@ def new_game(request):
     # Display a blank or invalid form
     context = {'form': form}
     return render(request, 'board_game/new_game.html', context)
+
+@login_required
+def edit_game(request, game_id):
+    """Edit an existing game."""
+    game = BoardGame.objects.get(id=game_id)
+
+    if request.method != 'POST':
+        # Initial request; pre-fill form with the current entry.
+        form = BoardGameForm(instance=game)
+    else:
+        # Post data submitted; process data
+        form = BoardGameForm(instance=game, data=request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('board_game:game', game_id=game.id)
+
+    context = {'game': game, 'form': form}
+    return render(request, 'board_game/edit_game.html', context)
 
 @login_required
 def new_review(request, game_id):
