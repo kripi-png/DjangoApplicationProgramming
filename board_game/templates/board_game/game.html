@@ -14,13 +14,8 @@
     width="300px"
     height="auto" />
   {% endif %}
-<<<<<<< HEAD
   <h3>{{ game }}</h3>
   <p>description: {{  game.description  }}</p>
-=======
-  <p>Game: {{ game }}</p>
-  <p>Description: {{ game.description }}</p>
->>>>>>> 9bef4a35420c4a072ae660112db2a3080cae10af
   <p>Average score: {{ game.average_score }}</p>
   <p>Status: {{ game.get_status_display }} </p>
   <p><a href="{% url 'board_game:edit_game' game.id %}">Edit book</a></p>
