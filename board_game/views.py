@@ -85,7 +85,7 @@ def edit_game_image(request, game_id):
         file_name = request.FILES['image'].name
 
         fs = FileSystemStorage()
-        file = fs.save('.</games/' + image.name, image)
+        file = fs.save('./games/' + image.name, image)
         fileurl = fs.url(file)
         report = file_name
 
