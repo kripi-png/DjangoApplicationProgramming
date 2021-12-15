@@ -2,9 +2,9 @@
 {% load static %}
 {% block content %}
 
-  {% if game.image.filename %}
+  {% if game.image %}
   <img
-    src="{{ MEDIA_URL }}{{ game.image }}"
+    src="{{ MEDIA_URL }}games/{{ game.image }}"
     alt="{{ game.image.filename }}"
     width="300px"
     height="auto" />
@@ -14,8 +14,10 @@
     width="300px"
     height="auto" />
   {% endif %}
+  <p><a href="{% url 'board_game:edit_game_image' game.id %}">Edit image</a></p>
+
   <h3>{{ game }}</h3>
-  <p>description: {{  game.description  }}</p>
+  <p>Description: {{ game.description }}</p>
   <p>Average score: {{ game.average_score }}</p>
   <p>Status: {{ game.get_status_display }} </p>
   {% if game.owner == request.user %}
@@ -40,7 +42,6 @@
     </form>
   {% endif %}
   <br>
-
 
   <p>Reviews:</p>
   <a class="btn btn-sm btn-primary" href="{% url 'board_game:new_review' game.id %}"

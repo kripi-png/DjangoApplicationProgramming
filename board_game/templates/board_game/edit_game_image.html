@@ -1,0 +1,21 @@
+{% extends 'board_game/base.html' %}
+{% block content %}
+
+  <p>Update Image<p/>
+  {% if game.image %}
+    <img
+      src="{{ MEDIA_URL }}games/{{ game.image }}"
+      alt="{{ game.image.filename }}"
+      width="300px"
+      height="auto" />
+  {% else %}
+    <p>No image currently</p>
+  {% endif %}
+  <form action="" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input type="file" id="updateImageInput" name="image" placeholder="Update game image"
+    enctype="multipart/form-data">
+    <button type="submit" class="btn btn-sm btn-primary" href="">Update</button>
+  </form>
+
+{% endblock content %}

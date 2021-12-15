@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from django.core.files.storage import FileSystemStorage
 
 from .models import BoardGame, Review
 from .forms import BoardGameForm, ReviewForm, LoanForm
@@ -74,6 +75,26 @@ def edit_game(request, game_id):
 
     context = {'game': game, 'form': form}
     return render(request, 'board_game/edit_game.html', context)
+
+@login_required
+def edit_game_image(request, game_id):
+    game = BoardGame.objects.filter(id=game_id)
+
+    if request.method == 'POST':
+        image = request.FILES['image']
+        file_name = request.FILES['image'].name
+
+        fs = FileSystemStorage()
+        file = fs.save('.</games/' + image.name, image)
+        fileurl = fs.url(file)
+        report = file_name
+
+        game.update(image=image)
+        return redirect('board_game:game', game_id=game_id)
+
+    else:
+        context = {'game': game[0]}
+        return render(request, 'board_game/edit_game_image.html', context)
 
 @login_required
 def new_review(request, game_id):
