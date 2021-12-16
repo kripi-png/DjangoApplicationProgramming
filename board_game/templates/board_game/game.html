@@ -17,13 +17,14 @@
   <p><a href="{% url 'board_game:edit_game_image' game.id %}">Edit image</a></p>
 
   <h3>{{ game }}</h3>
-  <p>Description: {{ game.description }}</p>
-  <p>Average score: {{ game.average_score }}</p>
+  <h5>Description</h5>
+  <p>{{ game.description }}</p>
   {% if game.owner == request.user %}
   <p><a href="{% url 'board_game:edit_game' game.id %}" class="btn btn-sm btn-primary">Edit game</a></p>
   <br>
   {% endif %}
-  <p>Status: {{ game.get_status_display }} </p>
+  <h5>Status</h5>
+  <p>{{ game.get_status_display }}</p>
 
   <!-- o == On Loan -->
   {% if game.status == "o" %}
@@ -43,7 +44,8 @@
   {% endif %}
   <br>
 
-  <p>Reviews:</p>
+  <h5>Reviews</h5>
+  <p>Average score: {{ game.average_score }}</p>
   <a class="btn btn-sm btn-primary" href="{% url 'board_game:new_review' game.id %}"
     role="button">Add a new review</a>
   {% for review in reviews %}
