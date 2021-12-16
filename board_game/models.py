@@ -41,6 +41,10 @@ class BoardGame(models.Model):
         return self.name
 
     @property
+    def image_exists(self):
+        return self.image.storage.exists('games/' + self.image.name)
+
+    @property
     def average_score(self):
        """
        Calculates average review score via reduce function
