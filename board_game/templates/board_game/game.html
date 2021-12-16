@@ -1,20 +1,20 @@
 {% extends 'board_game/base.html' %}
 {% load static %}
 {% block content %}
-
-  {% if game.image %}
+  {% if game.image_exists %}
   <img
     src="{{ MEDIA_URL }}games/{{ game.image }}"
-    alt="{{ game.image.filename }}"
-    width="300px"
-    height="auto" />
+    alt="{{ game.image.name }}"
+    width="auto"
+    height="200px" />
   {% else %}
   <img src="{% static 'default_game_image.jpg' %}"
     alt="no image"
-    width="300px"
-    height="auto" />
+    width="auto"
+    height="200px" />
   {% endif %}
-  <p><a href="{% url 'board_game:edit_game_image' game.id %}">Edit image</a></p>
+  <br>
+  <button class="btn btn-sm btn-primary"><a href="{% url 'board_game:edit_game_image' game.id %}"></a>Edit image</button>
 
   <h3>{{ game }}</h3>
   <h5>Description</h5>
@@ -32,14 +32,14 @@
     {% if game.borrower == request.user %}
       <form action="{% url 'board_game:game' game.id %}" method='post'>
         {% csrf_token %}
-        <button name='submit' class="btn btn-md btn-primary">Return the game</button>
+        <button name='submit' class="btn btn-sm btn-primary">Return the game</button>
       </form>
     {% endif %}
   <!-- a == Available -->
   {% elif game.status == "a" %}
     <form action="{% url 'board_game:game' game.id %}" method='post'>
       {% csrf_token %}
-      <button class="btn btn-md btn-primary" name='submit' role="button">Loan the game</button>
+      <button class="btn btn-sm btn-primary" name='submit' role="button">Loan the game</button>
     </form>
   {% endif %}
   <br>
