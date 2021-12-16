@@ -51,6 +51,8 @@ def new_game(request):
         if form.is_valid():
             new_game = form.save(commit=False)
             new_game.owner = request.user
+            # if not redefined url will include media/ which is unnecessary
+            new_game.image = request.FILES['image'].name
             new_game.save()
             return redirect('board_game:games')
 
@@ -78,16 +80,22 @@ def edit_game(request, game_id):
 
 @login_required
 def edit_game_image(request, game_id):
+    """
+    Editing an uploaded file via "normal" forms is
+    overly complicated so there has to a function for it
+    """
+    # filter instead of get because update function needs a list (?)
     game = BoardGame.objects.filter(id=game_id)
 
     if request.method == 'POST':
+        # FILES['image'] refers to the name attribute of
+        # the input field in template
         image = request.FILES['image']
         file_name = request.FILES['image'].name
 
         fs = FileSystemStorage()
+        # save image to media/games/
         file = fs.save('./games/' + image.name, image)
-        fileurl = fs.url(file)
-        report = file_name
 
         game.update(image=image)
         return redirect('board_game:game', game_id=game_id)
