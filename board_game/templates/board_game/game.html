@@ -14,7 +14,7 @@
     height="200px" />
   {% endif %}
   <br>
-  <button class="btn btn-sm btn-primary"><a href="{% url 'board_game:edit_game_image' game.id %}"></a>Edit image</button>
+  <a href="{% url 'board_game:edit_game_image' game.id %}"><button class="btn btn-sm btn-primary">Edit image</button></a>
 
   <h3>{{ game }}</h3>
   <h5>Description</h5>
