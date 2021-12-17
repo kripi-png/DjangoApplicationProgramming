@@ -33,7 +33,7 @@ class BoardGame(models.Model):
             choices=LOAN_STATUS,
             blank=True,
             default='m',
-            help_text='Book availability',
+            help_text='Game availability',
     )
 
     def __str__(self):
